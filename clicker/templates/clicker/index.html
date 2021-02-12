@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <p>Like this app?</p>
+  {% csrf_token %}
+  <p>Total Likes: <span id="count">{{ clicked }}</span></p>
+
+  <button id="like">❤️ Like</button>
+  <button id="dislike">💔 Dislike</button>
+
+<script>
+  const likebtn = document.querySelector('#like');
+  likebtn.addEventListener('click', increaseCount);
+  
+  const disbtn = document.querySelector('#dislike');
+  disbtn.addEventListener('click', decreaseCount);
+
+  function increaseCount(){
+    let csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+    let endpoint = "{% url 'increase' %}"
+    fetch(endpoint, { headers: {'X-CSRFToken': csrftoken}, method:'POST' })
+      .then(response => response.json())
+      .then(data => updateUI(data));
+  }
+
+  function decreaseCount(){
+    let csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+    let endpoint = "{% url 'decrease' %}"
+    fetch(endpoint, { headers: {'X-CSRFToken': csrftoken}, method:'POST' })
+      .then(response => response.json())
+      .then(data => updateUI(data));
+  }
+  
+  function updateCount(){
+    let csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+    let endpoint = "{% url 'update' %}"
+    fetch(endpoint, { headers: {'X-CSRFToken': csrftoken}, method:'POST' })
+      .then(response => response.json())
+      .then(data => updateUI(data));
+  }
+  
+  function updateUI(data){
+    let count = document.querySelector('#count');
+    count.innerHTML = data.clicked;
+  }
+
+  setInterval( updateCount, 5000)
+
+</script>
+{% endblock %}

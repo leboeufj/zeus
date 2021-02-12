@@ -1,1 +1,3 @@
-web: gunicorn locallibrary.wsgi --log-file -
+web: gunicorn zeus.wsgi --log-file -
+python manage.py collectstatic --noinput
+manage.py migrate

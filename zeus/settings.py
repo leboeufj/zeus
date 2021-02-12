@@ -26,7 +26,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'b#s*_o(3t3ai_k(c5po@h7a=nj5#vj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'https://zeusclicks.herokuapp.com/',
+    '127.0.0.1',
+]
 
 
 # Application definition
@@ -124,7 +127,7 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 # X_FRAME_OPTIONS = '*'
 
 X_FRAME_OPTIONS = 'DENY'
